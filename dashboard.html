@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2 id="welcome-msg"></h2>
+  <div id="details"></div>
+  <ul>
+    <li>Thanks for your donation towards our organization</li>
+  </ul>
+  <br />
+  <button onclick="window.location.href='leaderboard.html'">View Leaderboard</button>
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const currentUser = localStorage.getItem("currentUser");
+    const user = users.find(u => u.name === currentUser);
+
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("welcome-msg").innerText = `Welcome, ${user.name}`;
+      document.getElementById("details").innerHTML = `
+        <p>Referral Code: ${user.name.toLowerCase()}2025</p>
+        <p>Donations: ${user.donation}</p>
+      `;
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
+

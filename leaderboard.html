@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Leaderboard</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Donations </th>
+      </tr>
+    </thead>
+    <tbody id="leaderboard"></tbody>
+  </table>
+  <br />
+  <button onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+
+  <script>
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const sorted = users.sort((a, b) => b.donation - a.donation);
+    const tbody = document.getElementById("leaderboard");
+
+    sorted.forEach((u, i) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${i + 1}</td><td>${u.name}</td><td>${u.donation}</td>`;
+      tbody.appendChild(tr);
+    });
+  </script>
+</body>
+</html>
+

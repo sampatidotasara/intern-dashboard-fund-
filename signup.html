@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Signup</h2>
+  <form onsubmit="signup(event)">
+    <input type="text" id="name" placeholder="Name" required /><br><br>
+    <input type="password" id="password" placeholder="Password" required /><br><br>
+    <input type="number" id="donation" placeholder="Donation Amount" required /><br><br>
+    <button type="submit">Signup</button><br><br>
+  </form>
+
+  <script>
+    function signup(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const password = document.getElementById("password").value;
+      const donation = parseInt(document.getElementById("donation").value);
+
+      let users = JSON.parse(localStorage.getItem("users") || "[]");
+      if (users.some(u => u.name === name)) {
+        alert("User already exists!");
+        return;
+      }
+
+      users.push({ name, password, donation });
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("currentUser", name);
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Login</h2>
+  <form onsubmit="login(event)">
+    <input type="text" id="name" placeholder="Name" required /><br><br>
+    <input type="password" id="password" placeholder="Password" required /><br><br>
+    <button type="submit">Login</button><br><br>
+  </form>
+
+  <script>
+    function login(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const password = document.getElementById("password").value;
+
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const user = users.find(u => u.name === name && u.password === password);
+
+      if (!user) {
+        alert("Invalid credentials or user not on leaderboard!");
+        return;
+      }
+
+      localStorage.setItem("currentUser", name);
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>
+
